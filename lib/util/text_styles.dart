@@ -15,4 +15,36 @@ class AppText {
       height: height ?? height,
     );
   }
+
+  // Primary Heading
+
+  static TextStyle headingOne({Color? color}) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      color: color,
+      fontSize: 25,
+      fontFamily: 'Poppins',
+    );
+  }
+
+// Secondary Heading
+
+  static TextStyle headingTwo({Color? color}) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      color: color,
+      fontSize: 16,
+      fontFamily: 'Poppins',
+    );
+  }
+
+// Body
+
+  static TextStyle body({Color? color}) {
+    return TextStyle(
+      color: color,
+      fontSize: 14,
+      fontFamily: 'Poppins',
+    );
+  }
 }

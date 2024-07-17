@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:recharge_app/controller/tab_ctrl.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/util/text_styles.dart';
@@ -19,12 +20,13 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Home",
-          style: AppText.mainTitle(),
-        ),
-        elevation: 0.5,
-        backgroundColor: AppColors.light,
+        title: Obx(() {
+          return Text(
+            _tabController.selectedIndex.value == 0 ? "Home" : "History",
+            style: AppText.mainTitle(),
+          );
+        }),
+        elevation: 0,
       ),
       body: Obx(() {
         return IndexedStack(
@@ -37,25 +39,39 @@ class Welcome extends StatelessWidget {
       }),
       bottomNavigationBar: Obx(() {
         return BottomNavigationBar(
+          selectedItemColor: AppColors.primaryColor,
           currentIndex: _tabController.selectedIndex.value,
           onTap: (index) => _tabController.changeTabIndex(index),
+          type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Ionicons.home_outline),
               label: 'Home',
+              activeIcon: Icon(
+                Ionicons.home,
+              ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.history),
+              icon: Icon(
+                Ionicons.arrow_undo_outline,
+              ),
               label: 'History',
+              activeIcon: Icon(
+                Ionicons.arrow_undo,
+              ),
             ),
           ],
         );
       }),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primaryColor,
         onPressed: () {
           // Get.to(NumpadPage());
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Ionicons.card,
+          color: Colors.white,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
