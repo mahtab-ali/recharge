@@ -37,7 +37,7 @@ class Success extends StatelessWidget {
                 height: 40,
               ),
               Text(
-                "Recharge Successfull!",
+                "All Done!",
                 style: AppText.headingOne(color: AppColors.primaryColor),
               ),
               const SizedBox(
