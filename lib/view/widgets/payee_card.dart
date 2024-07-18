@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:recharge_app/model/payee.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/util/text_styles.dart';
 import 'package:recharge_app/view/widgets/gradient_button.dart';
 
-class PayeeCard extends StatelessWidget {
-// Props
+typedef VoidCallback = void Function();
 
+class PayeeCard extends StatelessWidget {
   final Color? color;
-  final String? name;
+  final Payee? payee;
   final VoidCallback? onPressed;
 
-// Const
   const PayeeCard({
     super.key,
     this.color,
-    this.name,
+    this.payee,
     this.onPressed,
   });
 
-// Build
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,72 +39,9 @@ class PayeeCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: Stack(
           children: [
-            Positioned(
-              right: -40,
-              bottom: -20,
-              child: Opacity(
-                opacity: 0.2,
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.primaryColor,
-                        AppColors.secondaryColor
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              right: -5,
-              bottom: -40,
-              child: Opacity(
-                opacity: 0.2,
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.primaryColor,
-                        AppColors.secondaryColor
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              left: -10,
-              top: -10,
-              child: Opacity(
-                opacity: 0.2,
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.primaryColor,
-                        AppColors.secondaryColor
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            _buildGradientCircle(left: -40, top: -20),
+            _buildGradientCircle(left: -5, top: -40),
+            _buildGradientCircle(right: -30, bottom: -30),
             Container(
               padding: const EdgeInsets.all(15),
               width: double.infinity,
@@ -113,49 +49,78 @@ class PayeeCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.primaryColor,
-                          AppColors.secondaryColor
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
-                    child: const Icon(
-                      Ionicons.person_outline,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  _buildIcon(),
+                  const SizedBox(height: 15),
                   Text(
-                    "$name",
-                    style: AppText.headingTwo(
-                      color: AppColors.dark,
-                    ),
+                    "${payee?.name}",
+                    style: AppText.headingTwo(color: AppColors.dark),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(
-                    height: 25,
+                  const SizedBox(height: 5),
+                  Text(
+                    "${payee?.phone}",
+                    style: AppText.body(color: AppColors.dark),
+                    textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 25),
                   GradientButton(
-                    onPressed: () {},
-                    colors: [AppColors.primaryColor, AppColors.secondaryColor],
-                    child: Text("Recharge"),
+                    onPressed: onPressed!,
+                    colors: const [
+                      AppColors.primaryColor,
+                      AppColors.secondaryColor,
+                    ],
+                    child: const Text("Recharge"),
                   ),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildGradientCircle(
+      {double? left, double? top, double? right, double? bottom}) {
+    return Positioned(
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom,
+      child: Opacity(
+        opacity: 0.2,
+        child: Container(
+          width: 80,
+          height: 80,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              colors: [AppColors.primaryColor, AppColors.secondaryColor],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIcon() {
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: LinearGradient(
+          colors: [AppColors.primaryColor, AppColors.secondaryColor],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: const Icon(
+        Ionicons.person_outline,
+        color: Colors.white,
+        size: 20,
       ),
     );
   }

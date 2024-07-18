@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
-  final Function onPressed;
+  final VoidCallback onPressed;
   final Widget child;
   final List<Color> colors;
 
@@ -24,7 +24,7 @@ class GradientButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: MaterialButton(
-        onPressed: onPressed(),
+        onPressed: onPressed,
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

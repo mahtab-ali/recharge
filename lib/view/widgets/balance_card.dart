@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/util/text_styles.dart';
 
@@ -25,7 +26,6 @@ class BalanceCard extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 200,
-      margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
@@ -59,6 +59,18 @@ class BalanceCard extends StatelessWidget {
               ),
             ),
           ),
+          const Positioned(
+            left: -60,
+            bottom: -90,
+            child: Opacity(
+              opacity: 0.2,
+              child: Icon(
+                Ionicons.card_outline,
+                color: Colors.white,
+                size: 250,
+              ),
+            ),
+          ),
           Positioned(
             right: -5,
             bottom: -40,
@@ -89,17 +101,31 @@ class BalanceCard extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(15),
+          SizedBox(
             width: double.infinity,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.card_giftcard,
-                  color: Colors.white,
-                  size: 30,
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "John Doe",
+                        style: AppText.headingTwo(
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const Icon(
+                        Ionicons.card,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 25,

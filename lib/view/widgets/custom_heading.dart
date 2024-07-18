@@ -23,50 +23,48 @@ class CustomHeading extends StatelessWidget {
 // Build
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(
-                      left: 25,
-                    ),
-                    child: Text(
-                      title ?? "",
-                      style: AppText.headingTwo(),
-                    ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Stack(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 25,
                   ),
-                  if (trailing != null)
-                    InkWell(
-                        onTap: () {
-                          if (onTrailingClick != null) onTrailingClick!();
-                        },
-                        child: trailing!),
-                ],
-              ),
-              Positioned(
-                top: 10,
-                left: 0,
-                width: 15,
-                height: 3,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: color ?? AppColors.primaryColor,
+                  child: Text(
+                    title ?? "",
+                    style: AppText.headingTwo(),
                   ),
                 ),
-              )
-            ],
-          ),
-        ],
-      ),
+                if (trailing != null)
+                  InkWell(
+                    onTap: () {
+                      if (onTrailingClick != null) onTrailingClick!();
+                    },
+                    child: trailing!,
+                  ),
+              ],
+            ),
+            Positioned(
+              top: 10,
+              left: 0,
+              width: 15,
+              height: 3,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: color ?? AppColors.primaryColor,
+                ),
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 }

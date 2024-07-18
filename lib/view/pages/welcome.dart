@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:recharge_app/controller/payee_ctrl.dart';
 import 'package:recharge_app/controller/tab_ctrl.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/util/text_styles.dart';
@@ -14,6 +15,7 @@ class Welcome extends StatelessWidget {
 
   // Props
   final TabPageController _tabController = Get.put(TabPageController());
+  final PayeeController payeeController = Get.put(PayeeController());
 
   // Body
   @override
@@ -27,11 +29,20 @@ class Welcome extends StatelessWidget {
           );
         }),
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Ionicons.refresh),
+            color: AppColors.primaryColor,
+            onPressed: () {
+              payeeController.fetchPayees();
+            },
+          ),
+        ],
       ),
       body: Obx(() {
         return IndexedStack(
           index: _tabController.selectedIndex.value,
-          children: const [
+          children: [
             Home(),
             History(),
           ],
@@ -39,26 +50,23 @@ class Welcome extends StatelessWidget {
       }),
       bottomNavigationBar: Obx(() {
         return BottomNavigationBar(
+          elevation: 5,
           selectedItemColor: AppColors.primaryColor,
           currentIndex: _tabController.selectedIndex.value,
           onTap: (index) => _tabController.changeTabIndex(index),
           type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: AppText.body(),
+          unselectedLabelStyle: AppText.body(),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Ionicons.home_outline),
               label: 'Home',
-              activeIcon: Icon(
-                Ionicons.home,
-              ),
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Ionicons.arrow_undo_outline,
+                Ionicons.repeat_outline,
               ),
               label: 'History',
-              activeIcon: Icon(
-                Ionicons.arrow_undo,
-              ),
             ),
           ],
         );
