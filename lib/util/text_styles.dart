@@ -13,6 +13,7 @@ class AppText {
       color: color ?? AppColors.dark,
       fontSize: fontSize ?? 20,
       height: height ?? height,
+      fontFamily: 'Poppins',
     );
   }
 

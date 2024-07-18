@@ -22,6 +22,7 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Obx(() {
           return Text(
             _tabController.selectedIndex.value == 0 ? "Home" : "History",
@@ -73,11 +74,9 @@ class Welcome extends StatelessWidget {
       }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
-        onPressed: () {
-          // Get.to(NumpadPage());
-        },
+        onPressed: () {},
         child: const Icon(
-          Ionicons.card,
+          Ionicons.add,
           color: Colors.white,
         ),
       ),

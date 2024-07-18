@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:recharge_app/controller/payee_ctrl.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/view/pages/recharge.dart';
@@ -10,10 +9,13 @@ import 'package:recharge_app/view/widgets/custom_heading.dart';
 import 'package:recharge_app/view/widgets/payee_card.dart';
 
 class Home extends StatelessWidget {
+// const
   Home({super.key});
 
+// prop
   final PayeeController payeeController = Get.find();
 
+// build
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -27,17 +29,10 @@ class Home extends StatelessWidget {
               subTitle: "Available Credit",
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
             child: CustomHeading(
               title: "Your Payees",
-              trailing: const Icon(
-                Ionicons.refresh,
-                color: AppColors.primaryColor,
-              ),
-              onTrailingClick: () {
-                payeeController.fetchPayees();
-              },
             ),
           ),
           Obx(() {

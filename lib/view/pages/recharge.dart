@@ -7,6 +7,7 @@ import 'package:recharge_app/view/pages/success.dart';
 import 'package:recharge_app/view/widgets/gradient_button.dart';
 
 class Recharge extends StatelessWidget {
+// Props
   final RechargeController controller = Get.put(RechargeController());
 
   final List<String> rechargeValues = [
@@ -21,12 +22,16 @@ class Recharge extends StatelessWidget {
     '200 AED',
   ];
 
+// const
+  Recharge({super.key});
+
+// build
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Home",
+          "Recharge",
           style: AppText.mainTitle(),
         ),
         elevation: 0,
@@ -49,7 +54,7 @@ class Recharge extends StatelessWidget {
                   "3000 AED",
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 25,
                 ),
               ],
@@ -140,7 +145,7 @@ class Recharge extends StatelessWidget {
                 Center(
                   child: InkWell(
                     onTap: () {
-                      // Add your cancel logic here
+                      Navigator.pop(context);
                     },
                     child: Text(
                       "Cancel",
