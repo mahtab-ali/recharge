@@ -1,22 +1,22 @@
 [
     {
-        "name": "John",
+        "name": "John Doe",
         "phone": "+971-5084880"
     },
     {
-        "name": "Jane",
+        "name": "Jane Austin",
         "phone": "+971-5084881"
     },
     {
-        "name": "Doe",
+        "name": "Tom Hanks",
         "phone": "+971-5084882"
     },
     {
-        "name": "Smith",
+        "name": "William Smith",
         "phone": "+971-5084883"
     },
     {
-        "name": "Alex",
+        "name": "Sarah Connors",
         "phone": "+971-5084884"
     }
 ]

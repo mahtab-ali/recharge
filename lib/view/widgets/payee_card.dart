@@ -55,6 +55,8 @@ class PayeeCard extends StatelessWidget {
                     "${payee?.name}",
                     style: AppText.headingTwo(color: AppColors.dark),
                     textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 5),
                   Text(

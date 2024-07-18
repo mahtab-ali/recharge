@@ -14,13 +14,11 @@ class Success extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,7 +27,7 @@ class Success extends StatelessWidget {
                 margin: const EdgeInsets.all(15),
                 child: Image.asset(
                   'images/success.png',
-                  height: 150,
+                  width: 300,
                   fit: BoxFit.fitWidth,
                 ),
               ),

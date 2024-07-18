@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:recharge_app/controller/credit_ctrl.dart';
 import 'package:recharge_app/controller/payee_ctrl.dart';
 import 'package:recharge_app/controller/tab_ctrl.dart';
 import 'package:recharge_app/util/color.dart';
@@ -16,6 +17,7 @@ class Welcome extends StatelessWidget {
   // Props
   final TabPageController _tabController = Get.put(TabPageController());
   final PayeeController payeeController = Get.put(PayeeController());
+  final CreditController creditController = Get.put(CreditController());
 
   // Body
   @override

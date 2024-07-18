@@ -10,18 +10,6 @@ class Recharge extends StatelessWidget {
 // Props
   final RechargeController controller = Get.put(RechargeController());
 
-  final List<String> rechargeValues = [
-    '5 AED',
-    '10 AED',
-    '20 AED',
-    '30 AED',
-    '50 AED',
-    '75 AED',
-    '100 AED',
-    '150 AED',
-    '200 AED',
-  ];
-
 // const
   Recharge({super.key});
 
@@ -42,19 +30,21 @@ class Recharge extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(15.0),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Current Balance",
                   style: TextStyle(fontSize: 18.0),
                 ),
-                Text(
-                  "3000 AED",
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                Obx(
+                  () => Text(
+                    "${controller.creditController.availableCredit}",
+                    style: AppText.headingOne(),
+                  ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
               ],
@@ -68,7 +58,7 @@ class Recharge extends StatelessWidget {
                 crossAxisSpacing: 16.0,
                 mainAxisSpacing: 16.0,
               ),
-              itemCount: rechargeValues.length,
+              itemCount: controller.rechargeValues.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () => controller.selectBox(index),
@@ -100,7 +90,7 @@ class Recharge extends StatelessWidget {
                         ],
                       ),
                       child: Text(
-                        rechargeValues[index],
+                        "${controller.rechargeValues[index].toString()} AED",
                         style: TextStyle(
                           color: isSelected ? Colors.white : Colors.black,
                           fontWeight:
@@ -123,11 +113,8 @@ class Recharge extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   child: GradientButton(
                     onPressed: () {
-                      Get.to(
-                        const Success(),
-                        preventDuplicates: true,
-                        fullscreenDialog: true,
-                      );
+                      controller.doRecharge(controller.selectedIndex.value);
+                      Get.off(const Success());
                     },
                     colors: const [
                       AppColors.primaryColor,

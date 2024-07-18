@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:recharge_app/controller/credit_ctrl.dart';
 import 'package:recharge_app/controller/payee_ctrl.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/view/pages/recharge.dart';
@@ -14,6 +15,7 @@ class Home extends StatelessWidget {
 
 // prop
   final PayeeController payeeController = Get.find();
+  final CreditController creditController = Get.find();
 
 // build
   @override
@@ -21,12 +23,17 @@ class Home extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: BalanceCard(
-              colors: [AppColors.primaryColor, AppColors.secondaryColor],
-              title: "3000 AED",
-              subTitle: "Available Credit",
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Obx(
+              () => BalanceCard(
+                colors: const [
+                  AppColors.primaryColor,
+                  AppColors.secondaryColor
+                ],
+                title: "${creditController.availableCredit.value} AED",
+                subTitle: "Available Credit",
+              ),
             ),
           ),
           const Padding(
