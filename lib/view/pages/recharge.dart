@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recharge_app/controller/recharge_ctrl.dart';
+import 'package:recharge_app/model/payee.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/util/text_styles.dart';
 import 'package:recharge_app/view/pages/success.dart';
 import 'package:recharge_app/view/widgets/gradient_button.dart';
 
 class Recharge extends StatelessWidget {
-// Props
-  final RechargeController controller = Get.put(RechargeController());
+  // Props
+  final Payee selectedPayee;
 
-// const
-  Recharge({super.key});
+  // Constructor
+  const Recharge({super.key, required this.selectedPayee});
 
-// build
   @override
   Widget build(BuildContext context) {
+    final RechargeController controller = Get.find();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -44,9 +46,7 @@ class Recharge extends StatelessWidget {
                     style: AppText.headingOne(),
                   ),
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
+                const SizedBox(height: 25),
               ],
             ),
           ),
@@ -73,10 +73,7 @@ class Recharge extends StatelessWidget {
                                   AppColors.primaryColor,
                                   AppColors.secondaryColor
                                 ]
-                              : [
-                                  Colors.white,
-                                  Colors.white
-                                ], // Replace with your colors
+                              : [Colors.white, Colors.white],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -113,18 +110,30 @@ class Recharge extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   child: GradientButton(
                     onPressed: () {
-                      controller.doRecharge(controller.selectedIndex.value);
-                      Get.off(const Success());
+                      if (controller.selectedIndex.value != -1) {
+                        controller.doRecharge(controller.selectedIndex.value);
+                        Get.off(
+                          () => Success(
+                            amount: controller.selectedAmount.value.toString(),
+                            phoneNumber: controller.selectedPayee!.phone,
+                          ),
+                        );
+                      } else {
+                        Get.snackbar(
+                          'Error',
+                          'Please select an amount to recharge.',
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
                     },
                     colors: const [
                       AppColors.primaryColor,
-                      AppColors.secondaryColor,
+                      AppColors.secondaryColor
                     ],
                     child: const Text(
                       "Recharge Now",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),

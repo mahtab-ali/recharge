@@ -26,43 +26,45 @@ class CustomHeading extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Stack(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(
-                    left: 25,
+        Center(
+          child: Stack(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 25,
+                    ),
+                    child: Text(
+                      title ?? "",
+                      style: AppText.headingTwo(),
+                    ),
                   ),
-                  child: Text(
-                    title ?? "",
-                    style: AppText.headingTwo(),
-                  ),
-                ),
-                if (trailing != null)
-                  InkWell(
-                    onTap: () {
-                      if (onTrailingClick != null) onTrailingClick!();
-                    },
-                    child: trailing!,
-                  ),
-              ],
-            ),
-            Positioned(
-              top: 10,
-              left: 0,
-              width: 15,
-              height: 3,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: color ?? AppColors.primaryColor,
-                ),
+                  if (trailing != null)
+                    InkWell(
+                      onTap: () {
+                        if (onTrailingClick != null) onTrailingClick!();
+                      },
+                      child: trailing!,
+                    ),
+                ],
               ),
-            )
-          ],
+              Positioned(
+                top: 22,
+                left: 0,
+                width: 15,
+                height: 3,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: color ?? AppColors.primaryColor,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ],
     );

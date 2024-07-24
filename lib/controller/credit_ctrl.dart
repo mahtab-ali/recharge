@@ -1,21 +1,26 @@
 import 'package:get/get.dart';
-import 'package:recharge_app/util/color.dart';
+import 'package:recharge_app/controller/user_ctrl.dart';
+import 'package:recharge_app/model/payee.dart';
 
 class CreditController extends GetxController {
-  // Default credit set to 3000 AED
   var availableCredit = 3000.obs;
+  final UserController userController = Get.find();
 
-  // Method to subtract the selected amount from the available credit
-  void recharge(int amount) {
-    if (availableCredit >= amount) {
-      availableCredit.value -= amount;
-    } else {
-      Get.snackbar(
-        'Error',
-        'Insufficient credit',
-        backgroundColor: AppColors.primaryColor,
-        colorText: AppColors.light,
-      );
-    }
+  bool canRecharge(Payee payee, int amount) {
+    int limit = userController.getMonthlyTopUpLimit();
+    String payeeIdentifier = payee.phone; // Using phone as identifier
+    int currentTopUp = userController
+            .user.value.monthlyTopUpsPerBeneficiary[payeeIdentifier] ??
+        0;
+    int transactionFee = userController.getTransactionFee();
+
+    return availableCredit.value >= amount + transactionFee &&
+        (currentTopUp + amount) <= limit;
+  }
+
+  void recharge(Payee payee, int amount) {
+    int transactionFee = userController.getTransactionFee();
+    availableCredit.value -= (amount + transactionFee);
+    userController.updateMonthlyTopUp(payee.phone, amount);
   }
 }

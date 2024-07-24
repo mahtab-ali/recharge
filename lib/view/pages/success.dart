@@ -6,10 +6,15 @@ import 'package:recharge_app/view/pages/welcome.dart';
 import 'package:recharge_app/view/widgets/gradient_button.dart';
 
 class Success extends StatelessWidget {
-// const
-  const Success({super.key});
+  final String phoneNumber;
+  final String amount;
 
-// build
+  const Success({
+    Key? key,
+    required this.phoneNumber,
+    required this.amount,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +47,7 @@ class Success extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Dear Customer, you have successfully recharged the +971-50224432 with 50AED. You will recieve the confirmation message shortly.",
+                "Dear Customer, you have successfully recharged the $phoneNumber with ${int.parse(amount).toStringAsFixed(2)} AED. You will receive the confirmation message shortly.",
                 style: AppText.body(color: AppColors.dark.withAlpha(180)),
                 textAlign: TextAlign.center,
               ),

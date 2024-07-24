@@ -9,8 +9,9 @@ class HistoryCard extends StatelessWidget {
 // props
   final Payee? payee;
   final String? amount;
+  final VoidCallback? onSwipe;
 // const
-  const HistoryCard({super.key, this.payee, this.amount});
+  const HistoryCard({super.key, this.payee, this.amount, this.onSwipe});
 
 // build
   @override
@@ -37,7 +38,11 @@ class HistoryCard extends StatelessWidget {
                 Ionicons.repeat,
                 color: Colors.white,
               ),
-              onPress: () {},
+              onPress: () {
+                if (onSwipe != null) {
+                  onSwipe!();
+                }
+              },
               backgroudColor: AppColors.primaryColor,
             ),
           ],

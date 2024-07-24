@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:recharge_app/controller/credit_ctrl.dart';
 import 'package:recharge_app/controller/payee_ctrl.dart';
 import 'package:recharge_app/controller/tab_ctrl.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/util/text_styles.dart';
+import 'package:recharge_app/view/pages/add_payee.dart';
 import 'package:recharge_app/view/pages/history.dart';
 import 'package:recharge_app/view/pages/home.dart';
 
@@ -16,8 +16,7 @@ class Welcome extends StatelessWidget {
 
   // Props
   final TabPageController _tabController = Get.put(TabPageController());
-  final PayeeController payeeController = Get.put(PayeeController());
-  final CreditController creditController = Get.put(CreditController());
+  final PayeeController payeeController = Get.find();
 
   // Body
   @override
@@ -31,16 +30,6 @@ class Welcome extends StatelessWidget {
             style: AppText.mainTitle(),
           );
         }),
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Ionicons.refresh),
-            color: AppColors.primaryColor,
-            onPressed: () {
-              payeeController.fetchPayees();
-            },
-          ),
-        ],
       ),
       body: Obx(() {
         return IndexedStack(
@@ -76,7 +65,18 @@ class Welcome extends StatelessWidget {
       }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
-        onPressed: () {},
+        onPressed: () {
+          if (payeeController.payees.length == 5) {
+            Get.snackbar(
+              'Error',
+              'You can add only 5 payees at the moment',
+              backgroundColor: AppColors.primaryColor,
+              colorText: AppColors.light,
+            );
+          } else {
+            Get.to(() => CreatePayee());
+          }
+        },
         child: const Icon(
           Ionicons.add,
           color: Colors.white,

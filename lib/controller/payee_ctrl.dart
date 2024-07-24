@@ -1,33 +1,51 @@
-import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recharge_app/model/payee.dart';
+import 'package:recharge_app/util/mock_payee_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PayeeController extends GetxController {
   var payees = <Payee>[].obs;
   var isLoading = true.obs;
+  final PayeeService _payeeService = PayeeService();
 
   @override
   void onInit() {
-    fetchPayees();
     super.onInit();
+    loadPayees();
   }
 
-  void fetchPayees() async {
+  Future<void> loadPayees() async {
+    isLoading(true);
     try {
-      isLoading(true);
-      final String response = await rootBundle.loadString('data/payees.json');
-      var jsonData = jsonDecode(response);
-      payees.value = (jsonData as List).map((i) => Payee.fromJson(i)).toList();
+      final fetchedPayees = await _payeeService.fetchPayees();
+      payees.value = fetchedPayees;
     } catch (e) {
-      // Handle error
-      print('Error loading payees: $e');
+      isLoading(false);
+      debugPrint("Error loading payees: $e");
     } finally {
-      // Add a 3-second delay before setting isLoading to false
-      await Future.delayed(const Duration(seconds: 3));
       isLoading(false);
     }
+  }
+
+  Future<void> _savePayees() async {
+    final jsonData = json.encode(
+      payees.map((payee) => payee.toJson()).toList(),
+    );
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('payees', jsonData);
+  }
+
+  void addPayee(Payee payee) {
+    payees.add(payee);
+    Get.back();
+    _savePayees();
+  }
+
+  void deletePayee(Payee payee) {
+    payees.remove(payee);
+    _savePayees();
   }
 }

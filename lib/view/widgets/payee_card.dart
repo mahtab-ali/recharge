@@ -8,15 +8,15 @@ import 'package:recharge_app/view/widgets/gradient_button.dart';
 typedef VoidCallback = void Function();
 
 class PayeeCard extends StatelessWidget {
-  final Color? color;
   final Payee? payee;
   final VoidCallback? onPressed;
+  final VoidCallback? onRemove;
 
   const PayeeCard({
     super.key,
-    this.color,
     this.payee,
     this.onPressed,
+    this.onRemove,
   });
 
   @override
@@ -42,6 +42,17 @@ class PayeeCard extends StatelessWidget {
             _buildGradientCircle(left: -40, top: -20),
             _buildGradientCircle(left: -5, top: -40),
             _buildGradientCircle(right: -30, bottom: -30),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: IconButton(
+                icon: const Icon(
+                  Ionicons.close,
+                  color: Colors.red,
+                ),
+                onPressed: () => _showDeleteConfirmationDialog(context),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.all(15),
               width: double.infinity,
@@ -79,6 +90,49 @@ class PayeeCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Confirm Delete',
+            style: AppText.headingTwo(),
+          ),
+          content: Text(
+            'Are you sure you want to delete this payee?',
+            style: AppText.body(),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: AppText.body(color: AppColors.dark),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+            TextButton(
+              child: Text(
+                'Delete',
+                style: AppText.body(
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+                if (onRemove != null) {
+                  onRemove!(); // Call the onRemove callback
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 

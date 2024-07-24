@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:recharge_app/model/user.dart';
 import 'package:recharge_app/util/color.dart';
 import 'package:recharge_app/util/text_styles.dart';
 
@@ -9,6 +10,7 @@ class BalanceCard extends StatelessWidget {
   final List<Color>? colors;
   final String? title;
   final String? subTitle;
+  final User? user;
 
 // Const
 
@@ -17,6 +19,7 @@ class BalanceCard extends StatelessWidget {
     this.colors,
     this.title,
     this.subTitle,
+    this.user,
   });
 
 // build
@@ -113,12 +116,26 @@ class BalanceCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "John Doe",
-                        style: AppText.headingTwo(
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
+                      Row(
+                        children: [
+                          Text(
+                            "${user?.name}",
+                            style: AppText.headingTwo(
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          user!.isVerified
+                              ? const Icon(
+                                  Icons.verified,
+                                  color: Colors.white,
+                                  size: 15,
+                                )
+                              : Container(),
+                        ],
                       ),
                       const Icon(
                         Ionicons.card,
