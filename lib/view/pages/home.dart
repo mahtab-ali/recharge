@@ -25,8 +25,8 @@ class Home extends StatelessWidget {
   final UserController userController = Get.find();
 
   void handlePayeeSelection(Payee payee, int index) {
-    rechargeController.selectedIndex.value = index;
-    int amount = rechargeController.rechargeValues[index];
+    rechargeController.selectedIndex.value = 0;
+    int amount = rechargeController.rechargeValues[0];
     if (creditController.canRecharge(payee, amount)) {
       rechargeController.setSelectedPayee(payee);
       Get.to(() => Recharge(selectedPayee: payee));

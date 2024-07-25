@@ -9,19 +9,15 @@ class PayeeService {
 
   Future<List<Payee>> fetchPayees() async {
     try {
-      // Attempt to fetch payees from the network
       final response = await http.get(Uri.parse(endpoint));
-
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
-        // Save to SharedPreferences for future use
         await _savePayeesToSharedPreferences(jsonData);
         return jsonData.map((json) => Payee.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load payees');
       }
     } catch (e) {
-      // On error, load payees from SharedPreferences
       return await _loadPayeesFromSharedPreferences();
     }
   }

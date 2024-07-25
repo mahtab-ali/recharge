@@ -15,7 +15,10 @@ class Welcome extends StatelessWidget {
   Welcome({super.key});
 
   // Props
-  final TabPageController _tabController = Get.put(TabPageController());
+  final TabPageController _tabController = Get.put(
+    TabPageController(),
+    permanent: true,
+  );
   final PayeeController payeeController = Get.find();
 
   // Body
@@ -30,6 +33,7 @@ class Welcome extends StatelessWidget {
             style: AppText.mainTitle(),
           );
         }),
+        elevation: 0,
       ),
       body: Obx(() {
         return IndexedStack(
